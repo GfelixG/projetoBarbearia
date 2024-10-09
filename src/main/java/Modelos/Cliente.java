@@ -4,11 +4,11 @@ import java.util.Objects;
 
 public class Cliente {
     private String nome;
-    private String numero;
+    private String telefone;
 
     public Cliente(String nome, String numero) {
         this.nome = nome;
-        this.numero = numero;
+        this.telefone = numero;
     }
 
     @Override
@@ -16,12 +16,12 @@ public class Cliente {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Cliente cliente = (Cliente) o;
-        return Objects.equals(numero, cliente.numero);
+        return Objects.equals(telefone, cliente.telefone);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(numero);
+        return Objects.hashCode(telefone);
     }
 
     public String getNome() {
@@ -33,11 +33,11 @@ public class Cliente {
     }
 
     public String getNumero() {
-        return numero;
+        return telefone;
     }
 
     public void setNumero(String numero) {
-        this.numero = numero;
+        this.telefone = numero;
     }
 
 }
