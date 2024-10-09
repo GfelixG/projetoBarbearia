@@ -1,5 +1,7 @@
 package Modelos;
 
+import Controladores.Barbearia;
+
 public class Barbeiro {
     private String Nome;
     private Horario HorarioLivre;
