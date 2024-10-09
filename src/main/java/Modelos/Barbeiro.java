@@ -5,6 +5,12 @@ public class Barbeiro {
     private Horario HorarioLivre;
     private TipoDeCorte Especialidade;
 
+    public Barbeiro(String nome, Horario horarioLivre, TipoDeCorte especialidade) {
+        Nome = nome;
+        HorarioLivre = horarioLivre;
+        Especialidade = especialidade;
+    }
+
     public String getNome() {
         return Nome;
     }
