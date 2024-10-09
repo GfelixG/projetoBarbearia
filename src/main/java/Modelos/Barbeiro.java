@@ -3,7 +3,6 @@ package Modelos;
 public class Barbeiro {
     private String Nome;
     private Horario HorarioLivre;
-    private DiaDaSemana DiaLivre;
     private TipoDeCorte Especialidade;
 
     public String getNome() {
@@ -20,14 +19,6 @@ public class Barbeiro {
 
     public void setHorarioLivre(Horario horarioLivre) {
         HorarioLivre = horarioLivre;
-    }
-
-    public DiaDaSemana getDiaLivre() {
-        return DiaLivre;
-    }
-
-    public void setDiaLivre(DiaDaSemana diaLivre) {
-        DiaLivre = diaLivre;
     }
 
     public TipoDeCorte getEspecialidade() {
