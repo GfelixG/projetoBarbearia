@@ -3,7 +3,15 @@ package Modelos;
 public class Horario {
     private int hora;
     private int minuto;
-    private int horariosPorDia;
+    private DiaDaSemana dia;
+
+    public DiaDaSemana getDia() {
+        return dia;
+    }
+
+    public void setDia(DiaDaSemana dia) {
+        this.dia = dia;
+    }
 
     public int getHora() {
         return hora;
@@ -19,13 +27,5 @@ public class Horario {
 
     public void setMinuto(int minuto) {
         this.minuto = minuto;
-    }
-
-    public int getHorariosPorDia() {
-        return horariosPorDia;
-    }
-
-    public void setHorariosPorDia(int horariosPorDia) {
-        this.horariosPorDia = horariosPorDia;
     }
 }
