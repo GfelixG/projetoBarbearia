@@ -1,6 +1,4 @@
-package Modelos;
-
-import Controladores.Barbearia;
+package ProgramaBarbearia.Modelos;
 
 public class Barbeiro {
     private String Nome;

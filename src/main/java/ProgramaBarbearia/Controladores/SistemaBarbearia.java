@@ -1,7 +1,8 @@
-package Controladores;
+package ProgramaBarbearia.Controladores;
 
-import Modelos.*;
+import ProgramaBarbearia.Modelos.*;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
@@ -27,7 +28,7 @@ public class SistemaBarbearia implements Barbearia{
         }
 
     }
-
+    @Override
     public void CadastrarBarbeario(String Nome, Horario HorarioLivre, TipoDeCorte Especialidade){
             Barbeiro b = new Barbeiro(Nome, HorarioLivre, Especialidade);
             this.barbeiros.put(Nome, b);
@@ -41,17 +42,26 @@ public class SistemaBarbearia implements Barbearia{
 
     }
 
+    @Override
     public Barbeiro PesquisarBarbeiro(TipoDeCorte especialidade){
-        for(Barbeiro b : this.barbeiros.values()){}
-        return null;
+        for(Barbeiro b : this.barbeiros.values()){
+            if(b.getEspecialidade().equals(especialidade)){
+                return b;
+            }
+        }return null;
+
     }
 
     public Cliente PesquisarCliente(String telefone) {
         for (Cliente c : this.cliente.values()) {
+            if(c.getNumero().equals(telefone)){
+                return c;
+            }
         }return null;
     }
     public Collection PesquisarHorariodisponiveisnodia(DiaDaSemana dia){
         for(Horario h : this.horario.values()){
+
         }
         return null;
     }
@@ -59,9 +69,16 @@ public class SistemaBarbearia implements Barbearia{
         return false;
     }
 
-    public Collection VerificaEspecialidadeBarbeiro(Barbeiro barbeiro){
-        return null;
-    }
+    public Collection<Barbeiro> VerificaEspecialidadeBarbeiro(Barbeiro barbeiro,String nome){
+        Collection<Barbeiro> barbeirosespecialidade = new ArrayList<>();
+        for(Barbeiro b : this.barbeiros.values()){
+            if(b.getNome().equals(nome)){
+                barbeirosespecialidade.add(b);
+                }
+            } return barbeirosespecialidade;
+        }
+
+
 
     public void salvadaos(){
 

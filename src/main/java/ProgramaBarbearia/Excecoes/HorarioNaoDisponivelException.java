@@ -1,4 +1,4 @@
-package Exceções;
+package ProgramaBarbearia.Excecoes;
 
 public class HorarioNaoDisponivelException {
 }

@@ -1,4 +1,4 @@
-package Modelos;
+package ProgramaBarbearia.Modelos;
 
 import java.util.Objects;
 
