@@ -49,7 +49,7 @@ public class ProjetoBarbeariaGUI {
         janela.setVisible(b);
     }
 
-    private void customizeMenuBar(JMenuBar menuBar) {
+    """private void customizeMenuBar(JMenuBar menuBar) {
 
         menuBar.setUI(new BasicMenuBarUI() {
 
@@ -87,7 +87,7 @@ public class ProjetoBarbeariaGUI {
                 }
             }
         }
-    }
+    }"""
 
     private void changeComponentColors(Component comp) {
         comp.setBackground(Color.black);
