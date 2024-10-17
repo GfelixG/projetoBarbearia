@@ -9,7 +9,7 @@ import java.util.HashMap;
 public class SistemaBarbearia implements Barbearia{
     private HashMap<String, Barbeiro> barbeiros;
     private HashMap<String, Cliente> cliente;
-    private HashMap<String, Horario> horario;
+    private HashMap<String, String> horario;
 
     public SistemaBarbearia(){
         this.barbeiros = new HashMap<>();
