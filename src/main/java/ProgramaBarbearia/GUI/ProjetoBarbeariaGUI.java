@@ -48,4 +48,5 @@ public class ProjetoBarbeariaGUI {
         janela.setVisible(b);
     }
 
+
 }
