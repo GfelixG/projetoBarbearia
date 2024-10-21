@@ -1,14 +1,15 @@
 package ProgramaBarbearia.Modelos;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Cliente {
+public class Cliente implements Serializable {
     private String nome;
     private String telefone;
 
-    public Cliente(String nome, String numero) {
+    public Cliente(String nome, String telefone) {
         this.nome = nome;
-        this.telefone = numero;
+        this.telefone = telefone;
     }
 
     @Override
@@ -32,12 +33,16 @@ public class Cliente {
         this.nome = nome;
     }
 
-    public String getNumero() {
+    public String getTelefone() {
         return telefone;
     }
 
-    public void setNumero(String numero) {
+    public void setTelefone(String numero) {
         this.telefone = numero;
     }
 
+    @Override
+    public String toString() {
+        return "Cliente:" + nome + "telefone:" + telefone;
+    }
 }

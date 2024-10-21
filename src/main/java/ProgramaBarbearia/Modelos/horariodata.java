@@ -1,18 +1,23 @@
 package ProgramaBarbearia.Modelos;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.GregorianCalendar;
+
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class horariodata {
-    private GregorianCalendar gc;
-    private Date horaaramanipular;
-    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+    private LocalDateTime dateTime;
 
-    public horariodata (Date data){
-
+    public horariodata(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
     }
 
+    public LocalDate toLocalDate() {
+        return this.dateTime.toLocalDate();
+    }
 
+    public LocalDateTime getDateTime() {
+        return this.dateTime;
+    }
 
 }

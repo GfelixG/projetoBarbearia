@@ -1,11 +1,14 @@
 package ProgramaBarbearia.Modelos;
 
-public class Barbeiro {
+import java.io.Serializable;
+
+
+public class Barbeiro implements Serializable {
     private String Nome;
-    private Horario HorarioLivre;
+    private horariodata HorarioLivre;
     private TipoDeCorte Especialidade;
 
-    public Barbeiro(String nome, Horario horarioLivre, TipoDeCorte especialidade) {
+    public Barbeiro(String nome, horariodata horarioLivre, TipoDeCorte especialidade) {
         Nome = nome;
         HorarioLivre = horarioLivre;
         Especialidade = especialidade;
@@ -19,11 +22,11 @@ public class Barbeiro {
         Nome = nome;
     }
 
-    public Horario getHorarioLivre() {
+    public horariodata getHorarioLivre() {
         return HorarioLivre;
     }
 
-    public void setHorarioLivre(Horario horarioLivre) {
+    public void setHorarioLivre(horariodata horarioLivre) {
         HorarioLivre = horarioLivre;
     }
 
@@ -33,5 +36,9 @@ public class Barbeiro {
 
     public void setEspecialidade(TipoDeCorte especialidade) {
         Especialidade = especialidade;
+    }
+
+    public String getTipoDeCorte() {
+        return Especialidade.toString();
     }
 }
