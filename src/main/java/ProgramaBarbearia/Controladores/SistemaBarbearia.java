@@ -26,10 +26,10 @@ public class SistemaBarbearia implements Barbearia{
     }
 
     /**
-     *
+     * cadastra o cliente com base nas informacoes passada no paramentro e adcionar em no hashmap de cliente
      * @param nome
      * @param telefone
-     * @return
+     * @return bollean
      */
     @Override
     public boolean CadastrarCliente(String nome, String telefone){
@@ -49,7 +49,7 @@ public class SistemaBarbearia implements Barbearia{
      * @param Especialidade
      */
     @Override
-    public void CadastrarBarbeario(String Nome, horariodata HorarioLivre, TipoDeCorte Especialidade){
+    public void CadastrarBarbeario(String Nome, LocalDateTime HorarioLivre, TipoDeCorte Especialidade){
             Barbeiro b = new Barbeiro(Nome, HorarioLivre, Especialidade);
             this.barbeiros.put(Nome, b);
     }
@@ -75,17 +75,17 @@ public class SistemaBarbearia implements Barbearia{
     }
 
     /**
-     *
      * @param especialidade
      * @return
      */
     @Override
-    public Barbeiro PesquisarBarbeiro(TipoDeCorte especialidade){
+    public Collection<Barbeiro> PesquisarBarbeiro(TipoDeCorte especialidade){
+        Collection<Barbeiro> barbeiros = new ArrayList<>();
         for(Barbeiro b : this.barbeiros.values()){
             if(b.getEspecialidade().equals(especialidade)){
-                return b;
+                barbeiros.add(b);
             }
-        }return null;
+        }return barbeiros;
 
     }
 
@@ -140,18 +140,25 @@ public class SistemaBarbearia implements Barbearia{
         BarbeariaBrasil brasil = new BarbeariaBrasil(LocalTime.of(8,00), LocalTime.of(19,00));
         return brasil.estaAberta(LocalDateTime.now());
     }
+
+    /**
+     * verifica a especilide passada como parametro e percorrer o hashmap analisando  a especialidade
+     * e adcionando em um collection
+     * @param especialidade
+     * @return Collection de barbeiros
+     */
     @Override
-    public Collection<Barbeiro> VerificaEspecialidadeBarbeiro(Barbeiro barbeiro,String nome){
+    public Collection<Barbeiro> VerificaEspecialidadeBarbeiro(TipoDeCorte especialidade){
         Collection<Barbeiro> barbeirosespecialidade = new ArrayList<>();
         for(Barbeiro b : this.barbeiros.values()){
-            if(b.getNome().equals(nome)){
+            if(b.getEspecialidade().equals(especialidade)){
                 barbeirosespecialidade.add(b);
             }
         } return barbeirosespecialidade;
     }
 
     /**
-     *
+     *gravar o dados do sistema
      * @throws IOException
      */
     @Override
@@ -161,7 +168,7 @@ public class SistemaBarbearia implements Barbearia{
     }
 
     /**
-     *
+     *recuperar o dados que foi salvo na ARQUIVOS_BARBEIROS e ARQUIVOS_CLIENTE
      * @throws IOException
      */
     @Override

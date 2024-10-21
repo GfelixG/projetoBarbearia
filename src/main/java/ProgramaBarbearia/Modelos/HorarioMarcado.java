@@ -24,9 +24,7 @@ public class HorarioMarcado implements Serializable {
             return barbeiro;
         }
 
-        public horariodata getHorario() {
-            return horario;
-        }
+        public horariodata getHorario() {return horario;}
 
         public TipoDeCorte getTipoDeCorte() {
             return tipoDeCorte;

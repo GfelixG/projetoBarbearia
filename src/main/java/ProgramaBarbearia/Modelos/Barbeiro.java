@@ -1,14 +1,15 @@
 package ProgramaBarbearia.Modelos;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 
 public class Barbeiro implements Serializable {
     private String Nome;
-    private horariodata HorarioLivre;
+    private LocalDateTime HorarioLivre;
     private TipoDeCorte Especialidade;
 
-    public Barbeiro(String nome, horariodata horarioLivre, TipoDeCorte especialidade) {
+    public Barbeiro(String nome, LocalDateTime horarioLivre, TipoDeCorte especialidade) {
         Nome = nome;
         HorarioLivre = horarioLivre;
         Especialidade = especialidade;
@@ -22,11 +23,11 @@ public class Barbeiro implements Serializable {
         Nome = nome;
     }
 
-    public horariodata getHorarioLivre() {
+    public LocalDateTime getHorarioLivre() {
         return HorarioLivre;
     }
 
-    public void setHorarioLivre(horariodata horarioLivre) {
+    public void setHorarioLivre(LocalDateTime horarioLivre) {
         HorarioLivre = horarioLivre;
     }
 

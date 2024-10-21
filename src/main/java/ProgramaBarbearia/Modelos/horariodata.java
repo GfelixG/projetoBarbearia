@@ -19,5 +19,4 @@ public class horariodata {
     public LocalDateTime getDateTime() {
         return this.dateTime;
     }
-
 }
