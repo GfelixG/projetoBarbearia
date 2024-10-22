@@ -24,6 +24,11 @@ public class ProjetoBarbeariaGUI {
 
     public ProjetoBarbeariaGUI(){
         this.sistema = new SistemaBarbearia();
+        try {
+            sistema.gravardaos();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         try {
             createDialog();
@@ -35,8 +40,6 @@ public class ProjetoBarbeariaGUI {
     }
 
     public void createDialog() throws IOException {
-        //sistema.gravardaos();
-
         JLabel espaco1;
         JButton espaco2;
 
@@ -215,34 +218,33 @@ public class ProjetoBarbeariaGUI {
     }
 
     public void AgendarHorario() throws HorarioNaoDisponivelException {
-        try {
-                String telefone = JOptionPane.showInputDialog("Digite o telefone do cliente:");
-                String EspecialidadeString = JOptionPane.showInputDialog("Digite o especialidade do barbeiro:");
-                int horario = Integer.parseInt(JOptionPane.showInputDialog("Digite a hora qu você quer marcar:   12 horas -> 12"));
+                try {
+                    String telefone = JOptionPane.showInputDialog("Digite o telefone do cliente:");
+                    String EspecialidadeString = JOptionPane.showInputDialog("Digite o especialidade do barbeiro:").toUpperCase();
+                    int horario = Integer.parseInt(JOptionPane.showInputDialog("Digite a hora qu você quer marcar:   12 horas -> 12"));
 
-                TipoDeCorte t = TipoDeCorte.valueOf(EspecialidadeString);
+                    TipoDeCorte t = TipoDeCorte.valueOf(EspecialidadeString);
 
-                Cliente c = sistema.PesquisarCliente(telefone);
-                ArrayList<Barbeiro> b = sistema.PesquisarBarbeiro(t);
-                LocalDateTime l = LocalDateTime.of(2024, 10, 22, 10, 0);
-                horariodata h = new horariodata(l);
+                    Cliente c = sistema.PesquisarCliente(telefone);
+                    ArrayList<Barbeiro> b = sistema.PesquisarBarbeiro(t);
+                    LocalDateTime l = LocalDateTime.of(2024, 10, 22, horario, 0);
+                    horariodata h = new horariodata(l);
 
-                if(sistema.MarcaHorario(c, b.get(0), h, t)){
-                    JOptionPane.showMessageDialog(null, String.format("""
+                    if(sistema.MarcaHorario(c, b.get(0), h, t)){
+                        JOptionPane.showMessageDialog(null, String.format("""
                         Horário Marcado com Sucesso!!!
                         Hora: %d horas
                         Barbeiro: %s
                         Tipo de corte: %s
                         Valor: R$50,00""", 10, b.get(0).getNome(), t));
-                } else {
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Horário não marcado. Tente novamente");
+                    }
+                } catch (Exception ex) {
+                    System.out.println(ex.getMessage());
+                    ex.printStackTrace();
                     JOptionPane.showMessageDialog(null, "Horário não marcado. Tente novamente");
-                }
-
-        } catch (Exception ex){
-            System.out.println(ex.getMessage());
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Horário não marcado. Tente novamente");
-            throw new HorarioNaoDisponivelException("Horário já preenchido");
-        }
+                    throw new HorarioNaoDisponivelException("Horário já preenchido");
+                };
     }
 }

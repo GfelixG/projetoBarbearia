@@ -70,13 +70,9 @@ public class SistemaBarbearia implements Barbearia{
      */
     @Override
     public boolean MarcaHorario(Cliente cliente, Barbeiro barbeiro, horariodata horario, TipoDeCorte corte) throws HorarioNaoDisponivelException {
-            if(this.horario.containsKey(horario)){
-                throw new HorarioNaoDisponivelException("horario ja marcado");
-            }else{
                 HorarioMarcado NovoHorario = new HorarioMarcado(cliente, barbeiro, horario, corte);
                 this.horario.put(cliente.getTelefone(), NovoHorario);
                 return true;
-            }
     }
 
     /**
