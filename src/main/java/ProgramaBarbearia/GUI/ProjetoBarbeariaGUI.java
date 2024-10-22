@@ -12,6 +12,7 @@ import java.util.Collection;
 import java.util.Locale;
 
 import static javax.swing.JOptionPane.showInputDialog;
+import static javax.swing.JOptionPane.showMessageDialog;
 
 public class ProjetoBarbeariaGUI {
     private JFrame janela = new JFrame("Barbearia");
@@ -36,6 +37,7 @@ public class ProjetoBarbeariaGUI {
 
         janela.setSize(800, 600);
         janela.setResizable(false);
+        janela.setLocationRelativeTo(null);
         janela.getContentPane().setBackground(Color.BLACK);
         janela.getContentPane().setLayout(new GridLayout(2,2));
         janela.getContentPane().add(espaco1);
@@ -159,7 +161,7 @@ public class ProjetoBarbeariaGUI {
             String especialidadeString = showInputDialog("Qual a sua especialidade:").toUpperCase();
             TipoDeCorte especialidade2 = TipoDeCorte.valueOf(especialidadeString);
             Collection<Barbeiro> barbeiros = sistema.PesquisarBarbeiro(especialidade2);
-            showInputDialog(null , "os barbeiros sao " + barbeiros);
+            JOptionPane.showMessageDialog(null, "os barbeiros sao\n" + barbeiros);
         } catch (Exception ex){
             System.out.println(ex.getMessage());
             ex.printStackTrace();
