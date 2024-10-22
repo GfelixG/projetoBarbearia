@@ -147,7 +147,7 @@ public class ProjetoBarbeariaGUI {
         try {
             String cliente1 = showInputDialog("Digite o telefone do cliente:");
             Cliente c1 = sistema.PesquisarCliente(cliente1);
-            JOptionPane.showMessageDialog(null, "O CLIENTE PESQUISADO FOi " + c1);
+            JOptionPane.showMessageDialog(null, "O CLIENTE PESQUISADO FOi\n" + c1);
         } catch (Exception ex){
             System.out.println(ex.getMessage());
             ex.printStackTrace();
@@ -176,5 +176,9 @@ public class ProjetoBarbeariaGUI {
             System.out.println(ex.getMessage());
             ex.printStackTrace();
         }
+    }
+
+    public void AgendarHorario(){
+
     }
 }

@@ -42,4 +42,15 @@ public class Barbeiro implements Serializable {
     public String getTipoDeCorte() {
         return Especialidade.toString();
     }
+
+    @Override
+    public String toString() {
+        return String.format("""
+                ===================
+                Barbeiro: %s
+                Especialidade: %s
+                Disponibilidade: %s
+                ===================""",
+                this.Nome, this.Especialidade, this.HorarioLivre);
+    }
 }

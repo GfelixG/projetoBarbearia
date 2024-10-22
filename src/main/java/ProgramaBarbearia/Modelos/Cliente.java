@@ -1,11 +1,13 @@
 package ProgramaBarbearia.Modelos;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Objects;
 
 public class Cliente implements Serializable {
     private String nome;
     private String telefone;
+    private Collection<String> Agendamentos;
 
     public Cliente(String nome, String telefone) {
         this.nome = nome;
@@ -43,6 +45,12 @@ public class Cliente implements Serializable {
 
     @Override
     public String toString() {
-        return "Cliente:" + nome + "telefone:" + telefone;
+        return String.format("""
+                ===========================
+                Cliente: %s
+                Telefone: %s
+                Agendamentos: %s
+                ===========================""",
+                this.nome, this.telefone, this.Agendamentos);
     }
 }
