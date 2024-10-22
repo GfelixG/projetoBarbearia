@@ -13,7 +13,7 @@ import java.util.Collection;
 public interface Barbearia {
     boolean CadastrarCliente(String nome, String telefone);
 
-    void CadastrarBarbeario(String Nome, LocalDateTime HorarioLivre, TipoDeCorte Especialidade);
+    boolean CadastrarBarbeario(String Nome, LocalDateTime HorarioLivre, TipoDeCorte Especialidade);
 
     boolean MarcaHorario(Cliente cliente, Barbeiro barbeiro, horariodata horario, TipoDeCorte corte) throws HorarioNaoDisponivelException;
 

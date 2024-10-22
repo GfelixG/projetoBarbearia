@@ -43,15 +43,20 @@ public class SistemaBarbearia implements Barbearia{
     }
 
     /**
-     *
      * @param Nome
      * @param HorarioLivre
      * @param Especialidade
+     * @return
      */
     @Override
-    public void CadastrarBarbeario(String Nome, LocalDateTime HorarioLivre, TipoDeCorte Especialidade){
+    public boolean CadastrarBarbeario(String Nome, LocalDateTime HorarioLivre, TipoDeCorte Especialidade){
+        if(this.cliente.containsKey(Nome)){
+            return false;
+        } else {
             Barbeiro b = new Barbeiro(Nome, HorarioLivre, Especialidade);
             this.barbeiros.put(Nome, b);
+            return true;
+        }
     }
 
     /**
