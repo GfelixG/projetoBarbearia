@@ -1,13 +1,17 @@
 package ProgramaBarbearia.GUI;
 
+import ProgramaBarbearia.Barbearia;
 import ProgramaBarbearia.Controladores.SistemaBarbearia;
-import ProgramaBarbearia.Modelos.TipoDeCorte;
+import ProgramaBarbearia.Modelos.*;
 
 import javax.print.attribute.standard.JobKOctets;
 import javax.swing.*;
 import java.awt.*;
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.Locale;
+
+import static javax.swing.JOptionPane.showInputDialog;
 
 public class ProjetoBarbeariaGUI {
     private JFrame janela = new JFrame("Barbearia");
@@ -82,8 +86,11 @@ public class ProjetoBarbeariaGUI {
 
         Pesquisas = new JMenu("Pesquisas");
         MeusHorarios = new JMenuItem("Meus Horários");
+        MeusHorarios.addActionListener(a -> pesquisaHorario());
         Clientes = new JMenuItem("Cliente");
+        Clientes.addActionListener(a -> pesquisaCliente());
         Barbeiros = new JMenuItem("Barbeiro");
+        Barbeiros.addActionListener(a -> pesquisaBarbeiro());
         Pesquisas.add(MeusHorarios);
         Pesquisas.add(Clientes);
         Pesquisas.add(Barbeiros);
@@ -105,8 +112,8 @@ public class ProjetoBarbeariaGUI {
 
     private void cadastrarCliente(){
         try {
-            String nomeC = JOptionPane.showInputDialog("Digite seu nome:");
-            String telefone = JOptionPane.showInputDialog("Digite seu telefone:");
+            String nomeC = showInputDialog("Digite seu nome:");
+            String telefone = showInputDialog("Digite seu telefone:");
             if (sistema.CadastrarCliente(nomeC, telefone)){
                 JOptionPane.showMessageDialog(null, "CLIENTE CADASTRADO!");
             } else {
@@ -120,9 +127,9 @@ public class ProjetoBarbeariaGUI {
 
     private void cadastrarBarbeiro(){
         try {
-            String nomeB = JOptionPane.showInputDialog("Digite seu nome:");
+            String nomeB = showInputDialog("Digite seu nome:");
             LocalDateTime horario = LocalDateTime.of(2024, 10, 21, 22, 16);
-            String especialidadeString = JOptionPane.showInputDialog("Qual a sua especialidade:").toUpperCase();
+            String especialidadeString = showInputDialog("Qual a sua especialidade:").toUpperCase();
             TipoDeCorte especialidade = TipoDeCorte.valueOf(especialidadeString);
             if(sistema.CadastrarBarbeario(nomeB, horario, especialidade)){
                 JOptionPane.showMessageDialog(null, "BARBEIRO CADASTRADO");
@@ -138,7 +145,9 @@ public class ProjetoBarbeariaGUI {
 
     private void pesquisaCliente(){
         try {
-
+            String cliente1 = showInputDialog("Digite o telefone do cliente:");
+            Cliente c1 = sistema.PesquisarCliente(cliente1);
+            JOptionPane.showMessageDialog(null, "O CLIENTE PESQUISADO FOi " + c1);
         } catch (Exception ex){
             System.out.println(ex.getMessage());
             ex.printStackTrace();
@@ -147,7 +156,10 @@ public class ProjetoBarbeariaGUI {
 
     private void pesquisaBarbeiro(){
         try {
-
+            String especialidadeString = showInputDialog("Qual a sua especialidade:").toUpperCase();
+            TipoDeCorte especialidade2 = TipoDeCorte.valueOf(especialidadeString);
+            Collection<Barbeiro> barbeiros = sistema.PesquisarBarbeiro(especialidade2);
+            showInputDialog(null , "os barbeiros sao " + barbeiros);
         } catch (Exception ex){
             System.out.println(ex.getMessage());
             ex.printStackTrace();
@@ -156,7 +168,10 @@ public class ProjetoBarbeariaGUI {
 
     private void pesquisaHorario(){
         try {
-
+            String hora  = JOptionPane.showInputDialog(null, "qual a hora que voce vai pesquisar");
+            horariodata dia = new horariodata(LocalDateTime.now());
+            Collection<horariodata> horario = sistema.PesquisarHorariodisponiveisnodia(dia);
+            JOptionPane.showMessageDialog(null,"os horairos disponiveis sao " + horario);
         } catch (Exception ex){
             System.out.println(ex.getMessage());
             ex.printStackTrace();
