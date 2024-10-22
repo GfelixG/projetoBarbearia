@@ -84,13 +84,13 @@ public class SistemaBarbearia implements Barbearia{
      * @return
      */
     @Override
-    public Collection<Barbeiro> PesquisarBarbeiro(TipoDeCorte especialidade){
-        Collection<Barbeiro> barbeiros = new ArrayList<>();
+    public ArrayList<Barbeiro> PesquisarBarbeiro(TipoDeCorte especialidade){
+        ArrayList<Barbeiro> barbeiros = new ArrayList<>();
         for(Barbeiro b : this.barbeiros.values()){
             if(b.getEspecialidade().equals(especialidade)){
                 barbeiros.add(b);
             }
-        }return barbeiros;
+        } return barbeiros;
 
     }
 

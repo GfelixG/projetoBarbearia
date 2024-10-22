@@ -2,13 +2,17 @@ package ProgramaBarbearia.GUI;
 
 import ProgramaBarbearia.Barbearia;
 import ProgramaBarbearia.Controladores.SistemaBarbearia;
+import ProgramaBarbearia.Excecoes.HorarioNaoDisponivelException;
 import ProgramaBarbearia.Modelos.*;
 
 import javax.print.attribute.standard.JobKOctets;
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Locale;
 
 import static javax.swing.JOptionPane.showInputDialog;
@@ -21,19 +25,34 @@ public class ProjetoBarbeariaGUI {
     public ProjetoBarbeariaGUI(){
         this.sistema = new SistemaBarbearia();
 
-        createDialog();
+        try {
+            createDialog();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         createMenuBar();
         //createLayout();
     }
 
-    public void createDialog(){
+    public void createDialog() throws IOException {
+        //sistema.gravardaos();
+
         JLabel espaco1;
         JButton espaco2;
 
         ImageIcon LogoImg = new ImageIcon("./imgs/LOGO.png");
+        ImageIcon botao = new ImageIcon("./imgs/botao.png");
+
 
         espaco1 = new JLabel(LogoImg);
-        espaco2 = new JButton("Agendar");
+        espaco2 = new JButton(botao);
+        espaco2.addActionListener(a -> {
+            try {
+                AgendarHorario();
+            } catch (HorarioNaoDisponivelException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
         janela.setSize(800, 600);
         janela.setResizable(false);
@@ -41,6 +60,7 @@ public class ProjetoBarbeariaGUI {
         janela.getContentPane().setBackground(Color.BLACK);
         janela.getContentPane().setLayout(new GridLayout(2,2));
         janela.getContentPane().add(espaco1);
+        janela.getContentPane().add(espaco2);
 
         janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
@@ -71,11 +91,24 @@ public class ProjetoBarbeariaGUI {
 
         Arquivo = new JMenu("Arquivo");
         Sair = new JMenuItem("Sair");
-        Sair.addActionListener(a -> btn_sair()) ;
+        Sair.addActionListener(a -> {
+            try {
+                btn_sair();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }) ;
         Arquivo.add(Sair);
 
         Agendar = new JMenu("Agendar");
         AgendarHorario = new JMenuItem("Agendar Horário");
+        AgendarHorario.addActionListener(a -> {
+            try {
+                AgendarHorario();
+            } catch (HorarioNaoDisponivelException e) {
+                throw new RuntimeException(e);
+            }
+        });
         Agendar.add(AgendarHorario);
 
         Cadastrar = new JMenu("Cadastrar");
@@ -108,7 +141,8 @@ public class ProjetoBarbeariaGUI {
 
     //===============EVENTS==============//
 
-    private void btn_sair(){
+    private void btn_sair() throws IOException {
+        sistema.salvadaos();
         System.exit(0);
     }
 
@@ -138,7 +172,7 @@ public class ProjetoBarbeariaGUI {
             } else {
                 JOptionPane.showMessageDialog(null, "NÃO DEU CERTO!");
             }
-        } catch (java.lang.IllegalArgumentException ex){
+        } catch (Exception ex){
             System.out.println(ex.getMessage());
             JOptionPane.showMessageDialog(null, "especialidade não existe!");
             ex.printStackTrace();
@@ -173,14 +207,42 @@ public class ProjetoBarbeariaGUI {
             String hora  = JOptionPane.showInputDialog(null, "qual a hora que voce vai pesquisar");
             horariodata dia = new horariodata(LocalDateTime.now());
             Collection<horariodata> horario = sistema.PesquisarHorariodisponiveisnodia(dia);
-            JOptionPane.showMessageDialog(null,"os horairos disponiveis sao " + horario);
+            JOptionPane.showMessageDialog(null,"os horairos disponiveis sao\n" + horario);
         } catch (Exception ex){
             System.out.println(ex.getMessage());
             ex.printStackTrace();
         }
     }
 
-    public void AgendarHorario(){
+    public void AgendarHorario() throws HorarioNaoDisponivelException {
+        try {
+                String telefone = JOptionPane.showInputDialog("Digite o telefone do cliente:");
+                String EspecialidadeString = JOptionPane.showInputDialog("Digite o especialidade do barbeiro:");
+                int horario = Integer.parseInt(JOptionPane.showInputDialog("Digite a hora qu você quer marcar:   12 horas -> 12"));
 
+                TipoDeCorte t = TipoDeCorte.valueOf(EspecialidadeString);
+
+                Cliente c = sistema.PesquisarCliente(telefone);
+                ArrayList<Barbeiro> b = sistema.PesquisarBarbeiro(t);
+                LocalDateTime l = LocalDateTime.of(2024, 10, 22, 10, 0);
+                horariodata h = new horariodata(l);
+
+                if(sistema.MarcaHorario(c, b.get(0), h, t)){
+                    JOptionPane.showMessageDialog(null, String.format("""
+                        Horário Marcado com Sucesso!!!
+                        Hora: %d horas
+                        Barbeiro: %s
+                        Tipo de corte: %s
+                        Valor: R$50,00""", 10, b.get(0).getNome(), t));
+                } else {
+                    JOptionPane.showMessageDialog(null, "Horário não marcado. Tente novamente");
+                }
+
+        } catch (Exception ex){
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Horário não marcado. Tente novamente");
+            throw new HorarioNaoDisponivelException("Horário já preenchido");
+        }
     }
 }
